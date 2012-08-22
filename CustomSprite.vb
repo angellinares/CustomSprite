@@ -43,18 +43,6 @@ Public Class CustomSprite
     Private size As List(Of Double)
     Private imagePath As String
 
-
-    Public Overrides Sub DrawViewportWires(ByVal args As Grasshopper.Kernel.IGH_PreviewArgs)
-        MyBase.DrawViewportWires(args)
-
-        customSprite = New DisplayBitmap(Image.FromFile(imagePath))
-
-        For i As Integer = 0 To clusters.Count - 1
-            args.Display.DrawSprites(customSprite, clusters(i), size(i), True)
-        Next
-    End Sub
-
-
     ''' <summary>
     ''' This is the method that actually does the work.
     ''' </summary>
@@ -97,6 +85,18 @@ Public Class CustomSprite
 
     End Sub
 
+
+    Public Overrides Sub DrawViewportWires(ByVal args As Grasshopper.Kernel.IGH_PreviewArgs)
+        MyBase.DrawViewportWires(args)
+
+        customSprite = New DisplayBitmap(Image.FromFile(imagePath))
+
+        For i As Integer = 0 To clusters.Count - 1
+            args.Display.DrawSprites(customSprite, clusters(i), size(i), True)
+        Next
+    End Sub
+
+
     ''' <summary>
     ''' Provides an Icon for every component that will be visible in the User Interface.
     ''' Icons need to be 24x24 pixels.
@@ -105,7 +105,8 @@ Public Class CustomSprite
         Get
             'You can add image files to your project resources and access them like this:
             ' return Resources.IconForThisComponent;
-            Return Nothing
+            Return My.Resources.CustomSprite_03
+            'Return Nothing
         End Get
     End Property
 
