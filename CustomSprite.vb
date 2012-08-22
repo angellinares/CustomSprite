@@ -89,11 +89,19 @@ Public Class CustomSprite
     Public Overrides Sub DrawViewportWires(ByVal args As Grasshopper.Kernel.IGH_PreviewArgs)
         MyBase.DrawViewportWires(args)
 
+        'Checking errors.
+        If (imagePath = Nothing) Or (size.Count = 0) Or (clusters.Count = 0) Then
+            Exit Sub
+        End If
+
+
         customSprite = New DisplayBitmap(Image.FromFile(imagePath))
 
-        For i As Integer = 0 To clusters.Count - 1
-            args.Display.DrawSprites(customSprite, clusters(i), size(i), True)
-        Next
+        If customSprite.ToString <> Nothing Then
+            For i As Integer = 0 To clusters.Count - 1
+                args.Display.DrawSprites(customSprite, clusters(i), size(i), True)
+            Next
+        End If
     End Sub
 
 
